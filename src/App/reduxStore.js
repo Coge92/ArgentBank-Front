@@ -1,25 +1,14 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import { sessionSlice } from "../features/SignIn/sessionSlice";
+import { userSlice } from "../features/Dashboard/userSlice";
+import { accountsSlice } from "../features/Dashboard/accountSlice";
 
-const userSlice = createSlice({
-
-    name: "user",
-    initialState: {
-        email: "mail@mail.com",
-        password: "mdp",
-        firstName: "Mehdi",
-        lastName: "Habs",
-        userName: "Coge"
-    },
-    reducers:
-    {
-        
-    }
-
-})
 
 export const store = configureStore({
 
     reducer: {
+        session: sessionSlice.reducer,
         user: userSlice.reducer,
+        accounts: accountsSlice.reducer
     }
 })

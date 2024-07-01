@@ -1,50 +1,50 @@
 import Header from "../common/components/Header";
 import Footer from "../common/components/Footer";
 import { StyledMain } from "./SignIn";
-import styled from "styled-components";
-import Button from "../common/components/Button";
-import Account from "../features/Dashboard/Account";
 import { useSelector } from "react-redux";
-
-const StyledDashboardHeader = styled.div`
-  color: #fff;
-  margin-bottom: 2rem;
-  & button {
-  padding: 10px
-  }
-`
+import Account from "../features/Dashboard/Account";
+import HeaderDashboard from "../features/Dashboard/Header";
+import { useEffect } from "react";
+import { sessionStatus } from "../App/selectors";
+import { useNavigate } from "react-router-dom";
+import { accountsList } from "../App/selectors";
 
 function Dashboard() {
+  // const user = useSelector(userdata);
+  const navigate = useNavigate();
+  const status = useSelector(sessionStatus);
 
-  const userFirstName = useSelector((state) => state.user.firstName)
-  const userLastName = useSelector ((state) => state.user.lastName)
+  useEffect(() => {
+    if (status !== "success") {
+      navigate("/signin");
+    }
+    return;
+  });
+
+  const accounts = useSelector(accountsList);
+  console.log(accounts);
+
+  const amountToEuro = (amount) => {
+    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount);
+  }
 
   return (
     <>
       <Header></Header>
       <StyledMain>
-        <StyledDashboardHeader>
-          <h1>Welcome back ! <br />{userFirstName} {userLastName} </h1>
-          <Button>Edit Name</Button>
-        </StyledDashboardHeader>
+        <HeaderDashboard></HeaderDashboard>
         <h2 className="sr-only">Accounts</h2>
 
-        <Account 
-          accountType="checking"
-          description="Available Balance"
-        />
-
-        <Account 
-          accountType="saving"
-          description="Available Balance"
-          />
-
-        <Account 
-          accountType="credit card"
-          description="Current Balance"
-        />
-
-
+        {accounts.map((account, index) => (
+          <Account
+            accountType={account.accountType}
+            accountNumber={account.accountNumber}
+            accountAmount={amountToEuro(account.accountAmount)}
+            accountTransactions={account.accountTransactions}
+            description="Available Balance"
+            key={index}
+          ></Account>
+        ))}
       </StyledMain>
       <Footer></Footer>
     </>
