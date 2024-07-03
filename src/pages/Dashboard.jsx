@@ -16,7 +16,7 @@ function Dashboard() {
 
   useEffect(() => {
     if (status !== "success") {
-      navigate("/signin");
+      navigate("/");
     }
     return;
   });
