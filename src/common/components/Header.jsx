@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../../img/argentBankLogo.png";
+import logo from "../../img/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,

@@ -1,4 +1,4 @@
-import imgBackground from "../../img/bank-tree.jpeg";
+import imgBackground from "../../img/bank-tree.webp";
 import styled from "styled-components";
 
 const StyledHero = styled.div`
