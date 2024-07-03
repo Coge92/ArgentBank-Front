@@ -12,18 +12,31 @@ const StyledSection = styled.section`
   align-items: center;
   border: 1px solid black;
   background-color: #fff;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   padding: 1.5rem;
   box-sizing: border-box;
   text-align: left;
   margin-bottom: 2rem;
 
-  @media (min-width: 720px) {
-    flex-direction: row;
-
-    & .cta {
-      flex: 0;
+    @media (min-width: 720px) {
+        flex-direction: row;
+         width: 80%;
+         
+    }
+  
+  & .cta {
+    flex: 0;
+ 
+    & button {
+      margin-top: 1rem;
+      padding: 8px;
+      font-size: 1.1rem;
+      
+        @media (min-width: 720px) {
+          width: 200px;
+          
+        }
     }
   }
 
@@ -43,18 +56,6 @@ const StyledSection = styled.section`
   & .amount-description {
     margin: 0;
   }
-
-  & button {
-    margin-top: 1rem;
-    display: block;
-    width: 100%;
-    padding: 8px;
-    font-size: 1.1rem;
-
-    @media (min-width: 720px) {
-      width: 200px;
-    }
-  }
 `;
 
 const StyledDiv = styled.div`
@@ -63,6 +64,7 @@ const StyledDiv = styled.div`
   gap: 5px;
   width: 100%;
   flex: 1;
+
   & .icon {
     font-size: 2.5rem;
     color: #00bc77;
@@ -74,7 +76,62 @@ const StyledTab = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  & .date {
+  width: 25%;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 15px;
+  
+    @media (min-width: 720px) {
+      margin-left: 25px;
+    }
+
+  }
+
+  & .description {
+    width : 55%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+          @media (min-width: 720px) {
+          width : 40%;
+      
+      }
+  }
+
+  & .amount-details {
+    text-align: right;
+    width: 20%;
+
+      @media (min-width: 720px) {
+          margin-left: auto;
+      
+      }
+  }
+
+  & .balance {
+  display: none;
+
+    @media (min-width: 720px) {
+      display: flex;
+      width: 20%
+    }
+  }
+
 `;
+
+const SyledButtonTransaction = styled(Button)`
+ 
+    margin-top: 1rem;
+    padding: 8px;
+    font-size: 2rem;
+      
+    @media (min-width: 720px) {
+      width: 200px;
+    }
+  `
 
 const Account = (props) => {
   const [collapse, setCollapse] = useState(false);
@@ -82,8 +139,6 @@ const Account = (props) => {
   const lastAccountNumber = props.accountNumber.toString().substr(-4);
 
   const transactions = props.accountTransactions;
-
-  console.log(transactions);
 
   return (
     <>
@@ -97,13 +152,11 @@ const Account = (props) => {
         </StyledDiv>
         <StyledDiv className="cta">
           {!collapse ? (
-            <Button
-              onClick={() => {
-                setCollapse(!collapse);
-              }}
+            <SyledButtonTransaction
+              onClick={() => {setCollapse(!collapse);}}
             >
               View transactions
-            </Button>
+            </SyledButtonTransaction>
           ) : (
             <FontAwesomeIcon
               className="icon"
@@ -119,15 +172,15 @@ const Account = (props) => {
         <StyledSection style={{ marginTop: "-32px", borderTop: "none" }}>
           <StyledTab>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <p style={{ marginLeft: "25px", width: "20%" }}>Date</p>
-              <p style={{ marginLeft: "40px", width: "40%" }}>Description</p>
-              <p style={{ marginLeft: "10px", width: "20%" }}>Amount</p>
-              <p style={{ marginLeft: "10px", width: "20%" }}>Balance</p>
+              <p className="date">Date</p>
+              <p style={{ marginLeft: "40px", width: "31%" }}>Description</p>
+              <p className="amount-details" style={{ marginRight: "20px"}}>Amount</p>
+              <p className="balance" style={{width: "20%" }}>Balance</p>
             </div>
 
             {transactions.map((transaction, index) => (
               <Transaction
-              
+                accountNumber={props.accountNumber}
                 date={transaction.date}
                 description={transaction.description}
                 amount={transaction.amount}

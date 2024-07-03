@@ -10,6 +10,7 @@ const StyledButton = styled.button`
   &:hover {
     transform: scale(1.02);
   }
+
 `;
 
 const Button = (props) => {

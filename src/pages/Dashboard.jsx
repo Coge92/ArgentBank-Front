@@ -22,7 +22,6 @@ function Dashboard() {
   });
 
   const accounts = useSelector(accountsList);
-  console.log(accounts);
 
   const amountToEuro = (amount) => {
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount);
@@ -37,7 +36,6 @@ function Dashboard() {
 
         {accounts.map((account, index) => (
           <Account
-            accountType={account.accountType}
             accountNumber={account.accountNumber}
             accountAmount={amountToEuro(account.accountAmount)}
             accountTransactions={account.accountTransactions}

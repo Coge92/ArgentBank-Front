@@ -56,7 +56,7 @@ const Header = () => {
       )}
       {status === "success" && (
         <div>
-          <StyledLink to={() => {console.log(user);}}>
+          <StyledLink to="/dashboard">
             <FontAwesomeIcon
               icon={faCircleUser}
               style={{ marginRight: "5px" }}
